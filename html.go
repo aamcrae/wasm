@@ -1,7 +1,6 @@
 package html
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -256,8 +255,6 @@ func wr(sb *strings.Builder, s any) {
 		sb.WriteString(v)
 	case attr:
 		sb.WriteString(string(v))
-	case fmt.Stringer:
-		sb.WriteString(v.String())
 	case []byte:
 		sb.Write(v)
 	case rune:

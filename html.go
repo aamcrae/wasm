@@ -18,68 +18,84 @@ const (
 	f_no_arg
 )
 
+// Text composes the list of elements to a single string
 func Text(s ...any) string {
 	var b strings.Builder
 	wrAll(&b, s, false)
 	return b.String()
 }
 
+// H1 builds a H1 element
 func H1(elems ...any) string {
 	return tag("h1", elems)
 }
 
+// H2 builds a H2 element
 func H2(elems ...any) string {
 	return tag("h2", elems)
 }
 
+// H3 builds a H3 element
 func H3(elems ...any) string {
 	return tag("h3", elems)
 }
 
+// H4 builds a H4 element
 func H4(elems ...any) string {
 	return tag("h4", elems)
 }
 
+// H5 builds a H5 element
 func H5(elems ...any) string {
 	return tag("h5", elems)
 }
 
+// H6 builds a H6 element
 func H6(elems ...any) string {
 	return tag("h6", elems)
 }
 
+// Img builds a Img element
 func Img(elems ...any) string {
 	return tag("img", elems)
 }
 
+// Div builds a Div element
 func Div(elems ...any) string {
 	return tag("div", elems)
 }
 
+// A builds an anchor element
 func A(elems ...any) string {
 	return tag("a", elems)
 }
 
+// Span builds a span element
 func Span(elems ...any) string {
 	return tag("span", elems)
 }
 
+// Table builds a Table element
 func Table(elems ...any) string {
 	return tag("table", elems)
 }
 
+// Tr builds a table row element
 func Tr(elems ...any) string {
 	return tag("tr", elems)
 }
 
+// Td builds a table data element
 func Td(elems ...any) string {
 	return tag("td", elems)
 }
 
+// Br builds a break element
 func Br(elems ...any) string {
 	return emptyTag("br", elems)
 }
 
+// P builds a paragraph element
 func P(elems ...any) string {
 	return emptyTag("p", elems)
 }
@@ -138,6 +154,8 @@ func Download(s ...any) attr {
  * Modifiers, which set flags to control
  * the behaviour.
  */
+
+// If will drop this element if the condition is false
 func If(c bool) flag {
 	if !c {
 		return f_drop
@@ -146,10 +164,12 @@ func If(c bool) flag {
 	}
 }
 
+// For non-empty tags, do not generate the closing tag
 func Open() flag {
 	return f_no_close
 }
 
+// For non-empty tags, generate the closing tag.
 func Close() flag {
 	return f_no_open
 }

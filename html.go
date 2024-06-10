@@ -20,8 +20,12 @@ const (
 
 // Text composes the list of elements to a single string
 func Text(s ...any) string {
+	_, other, flags := unpack(s)
+	if (flags & f_drop) != 0 {
+		return ""
+	}
 	var b strings.Builder
-	wrAll(&b, s, false)
+	wrAll(&b, other, false)
 	return b.String()
 }
 

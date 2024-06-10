@@ -202,6 +202,7 @@ func (w *Window) Wait() {
 	select { }
 }
 
+// Fetch retrieves the file from the server.
 func (w *Window) Fetch(file string) ([]byte, error) {
 	f := NewFetcher(w, file)
 	return f.Get()

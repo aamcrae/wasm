@@ -1,7 +1,7 @@
 package html
 
 import (
-	"fmt"
+	"errors"
 	"sync"
 
 	"syscall/js"
@@ -43,7 +43,7 @@ func (f *Fetcher) Get() ([]byte, error) {
 }
 
 func (f *Fetcher) reject(this js.Value, args []js.Value) any {
-	f.err = fmt.Errorf("Rejected")
+	f.err = errors.New("Rejected")
 	f.wg.Done()
 	return nil
 }
@@ -57,7 +57,7 @@ func (f *Fetcher) response(this js.Value, args []js.Value) any {
 		return p2
 	}
 	// The file could not be accessed.
-	f.err = fmt.Errorf("Resp: %s", js.ValueOf(args[0].Get("status")).String())
+	f.err = errors.New(js.ValueOf(args[0].Get("status")).String())
 	f.wg.Done()
 	return nil
 }

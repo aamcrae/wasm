@@ -12,7 +12,7 @@ all: dir hello
 hello:
 	mkdir -p ${WEB}/hello
 	cp ../hello/index.html ${WEB}/hello
-	make hello-go # or hello-tinygo
+	make hello-tinygo # hello-go # or hello-tinygo
 	echo Hello world at http://localhost:${PORT}/hello
 
 hello-tinygo:

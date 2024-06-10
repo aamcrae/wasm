@@ -199,8 +199,7 @@ func (w *Window) refreshSize() {
 
 // Wait forces this thread to wait.
 func (w *Window) Wait() {
-	var c chan struct{}
-	<-c
+	select { }
 }
 
 func (w *Window) Fetch(file string) ([]byte, error) {

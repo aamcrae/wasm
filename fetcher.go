@@ -11,19 +11,19 @@ import (
 // Fetcher is an interface to the JS fetch API.
 // It is suitable for use with tinygo.
 type Fetcher struct {
-	w *Window
-	wg sync.WaitGroup
-	data []byte
-	err error
-	errF js.Func
-	respF js.Func
+	w      *Window
+	wg     sync.WaitGroup
+	data   []byte
+	err    error
+	errF   js.Func
+	respF  js.Func
 	readyF js.Func
-	ready atomic.Bool
+	ready  atomic.Bool
 }
 
 // NewFetcher returns a new instance of a fetcher.
 // The JS fetch api is called to start the reading of the file.
-func NewFetcher(w *Window, url string) * Fetcher{
+func NewFetcher(w *Window, url string) *Fetcher {
 	f := &Fetcher{w: w}
 	fPromise := w.window.Call("fetch", js.ValueOf(url))
 	f.wg.Add(1)

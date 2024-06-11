@@ -8,6 +8,7 @@ import (
 
 // Minimum movement to consider a touch event to be a swipe.
 const minSwipe = 30
+
 // Maximum time before a touch event stops being a swipe.
 const maxSwipeTime = time.Millisecond * 300
 
@@ -23,10 +24,10 @@ const (
 
 // Window is the main structure for interfacing to the browser
 type Window struct {
-	Width, Height                int	// Width and Height of window
+	Width, Height                int // Width and Height of window
 	window, document, head, body js.Value
 	// touch values
-	startTime time.Time
+	startTime      time.Time
 	startX, startY int
 	endX, endY     int
 	multiTouch     bool
@@ -199,7 +200,7 @@ func (w *Window) refreshSize() {
 
 // Wait forces this thread to wait.
 func (w *Window) Wait() {
-	select { }
+	select {}
 }
 
 // Fetch retrieves the file from the server.

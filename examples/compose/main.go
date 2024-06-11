@@ -12,7 +12,7 @@ func main() {
 	var b strings.Builder
 	b.WriteString(h.H1("Compositor examples"))
 	b.WriteString(h.P("Text and numbers (e.g: ", 1234, " and ", 5678, ") can be intermingled",
-			h.Br(), "as well as other elements like br", h.Br()))
+		h.Br(), "as well as other elements like br", h.Br()))
 	b.WriteString(h.Text("and runes (", rune(0x21A7), ")"))
 	b.WriteString(h.H2("Tables are supported"))
 	b.WriteString(h.Table(h.Open(), h.Summary("times table"), h.Border(2)))

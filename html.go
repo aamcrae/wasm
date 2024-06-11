@@ -218,7 +218,7 @@ func wrTag(nm string, elems []any, empty bool) string {
 		sb.WriteRune('>')
 	}
 	wrAll(&sb, other, false)
-	if !empty && (flags & f_no_close)==0 {
+	if !empty && (flags&f_no_close) == 0 {
 		sb.WriteString("</")
 		sb.WriteString(nm)
 		sb.WriteRune('>')
@@ -228,7 +228,7 @@ func wrTag(nm string, elems []any, empty bool) string {
 
 func attribute(nm string, elems []any) attr {
 	attrs, other, flags := unpack(elems)
-	if (flags & f_drop) != 0 || len(attrs) > 0 {
+	if (flags&f_drop) != 0 || len(attrs) > 0 {
 		return ""
 	}
 	var sb strings.Builder

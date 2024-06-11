@@ -42,7 +42,7 @@ import (
 	vars b string.Builder
 	b.WriteString(h.H1("Title Page"))
 	b.WriteString(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("my_image.jpg"), h.Alt("Flower"))))
-	b/WriteString(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
+	b.WriteString(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
 	b.WriteString(h.P("This is a paragraph", h.Br("with a break in it)))
 	b.WriteString(h.Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
 	b.WriteString(h.Span(h.Close())) // Now add the closing tag for span

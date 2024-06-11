@@ -41,11 +41,11 @@ import (
 	w := h.Window()
 	vars b string.Builder
 	b.WriteString(h.H1("Title Page"))
-	b.WriteString(A(Href("page/index.html"), Id("myid"), Img(Class("image"), Src("my_image.jpg"), Alt("Flower"))))
-	b/WriteString(Span(Class("myspan"), Open()) // Don't close tag
-	b.WriteString(P("This is a paragraph", Br("with a break in it)))
-	b.WriteString(Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
-	b.WriteString(Span(Close())) // Now add the closing tag for span
+	b.WriteString(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("my_image.jpg"), h.Alt("Flower"))))
+	b/WriteString(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
+	b.WriteString(h.P("This is a paragraph", h.Br("with a break in it)))
+	b.WriteString(h.Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
+	b.WriteString(h.Span(h.Close())) // Now add the closing tag for span
 	w.Display(b.String())
 ```
 
@@ -53,10 +53,10 @@ Modifiers and conditionals are allowed so that the functional flow can be mainta
 
 ```
 	// Only display title if it is not empty
-	b.WriteString(H1(If(len(title) > 0), title))
-	b.WriteString(A(Open(), Id("id", i), Href("#")))
-    // complicated code to generate anchor
-	b.WritesString(A(Close()))
+	b.WriteString(h.H1(h.If(len(title) > 0), title))
+	b.WriteString(h.A(h.Open(), h.Id("id", i), h.Href("#")))
+	// complicated code to generate anchor
+	b.WritesString(h.A(h.Close()))
 ```
 
 # Fetcher
@@ -67,9 +67,9 @@ It allows concurrent fetching of multiple files:
 
 ```
 	// Start fetching all the files required
-	f1 := NewFetcher(w, "data/file1")
-	f2 := NewFetcher(w, "data/file2")
-	f3 := NewFetcher(w, "data/file3")
+	f1 := h.NewFetcher(w, "data/file1")
+	f2 := h.NewFetcher(w, "data/file2")
+	f3 := h.NewFetcher(w, "data/file3")
 	...
 	// Retrieve data only when available
 	if f1.Ready() {

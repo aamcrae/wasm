@@ -6,7 +6,7 @@ It consists of a window/DOM interface object, and simple compositor functions
 used for building dynamic HTML. One of the goals is to be usable with [tinygo](https://tinygo.org/),
 which does bnot support the full range of Go's standard library.
 
-[Examples](example/server) are available to show how the library can be used.
+[Examples](examples/server) are available to show how the library can be used.
 
 # Window
 

@@ -32,7 +32,7 @@ type Window struct {
 	multiTouch     bool
 }
 
-// GetWindow creates a new Window ready to interface to the browser.
+// GetWindow creates a Window ready to interface to the browser.
 func GetWindow() *Window {
 	w := &Window{}
 	w.window = js.Global()

@@ -103,6 +103,11 @@ func P(elems ...any) string {
 	return emptyTag("p", elems)
 }
 
+// Link builds a link element
+func Link(elems ...any) string {
+	return emptyTag("link", elems)
+}
+
 // Attributes
 
 func Alt(s ...any) attr {
@@ -123,6 +128,14 @@ func Onclick(s ...any) attr {
 
 func Href(s ...any) attr {
 	return attribute("href", s)
+}
+
+func Rel(s ...any) attr {
+	return attribute("rel", s)
+}
+
+func Type(s ...any) attr {
+	return attribute("type", s)
 }
 
 func Border(s ...any) attr {

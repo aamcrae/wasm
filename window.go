@@ -23,8 +23,8 @@ const (
 
 // Window is the main structure for interfacing to the browser
 type Window struct {
+	Width, Height                int	// Width and Height of window
 	window, document, head, body js.Value
-	Width, Height                int
 	// touch values
 	startTime time.Time
 	startX, startY int

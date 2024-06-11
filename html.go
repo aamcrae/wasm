@@ -93,14 +93,21 @@ func Td(elems ...any) string {
 	return tag("td", elems)
 }
 
+// P builds a paragraph element
+func P(elems ...any) string {
+	return tag("p", elems)
+}
+
+// Empty elements
+
 // Br builds a break element
 func Br(elems ...any) string {
 	return emptyTag("br", elems)
 }
 
-// P builds a paragraph element
-func P(elems ...any) string {
-	return emptyTag("p", elems)
+// Hr builds a hr element
+func Hr(elems ...any) string {
+	return emptyTag("br", elems)
 }
 
 // Link builds a link element

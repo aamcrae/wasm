@@ -4,7 +4,7 @@ This library contains support for running Go programs under Web Assembly.
 
 It consists of a window/DOM interface object, and simple compositor functions
 used for building dynamic HTML. One of the goals is to be usable with [tinygo](https://tinygo.org/),
-which does bnot support the full range of Go's standard library.
+which does not support the full range of Go's standard library.
 
 [Examples](examples/server) are available to show how the library can be used.
 
@@ -41,7 +41,7 @@ import (
 	w := h.Window()
 	vars b string.Builder
 	b.WriteString(h.H1("Title Page"))
-	b.WriteString(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("my_image.jpg"), h.Alt("Flower"))))
+	b.WriteString(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("flower.jpg"), h.Alt("Flower"))))
 	b.WriteString(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
 	b.WriteString(h.P("This is a paragraph", h.Br("with a break in it)))
 	b.WriteString(h.Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
@@ -49,7 +49,8 @@ import (
 	w.Display(b.String())
 ```
 
-Modifiers and conditionals are allowed so that the functional flow can be maintained:
+Modifiers and conditionals are allowed so that the flow can be maintained when
+deeply embedded functions are used (without resorting to if/else control flow):
 
 ```
 	// Only display title if it is not empty
@@ -59,11 +60,14 @@ Modifiers and conditionals are allowed so that the functional flow can be mainta
 	b.WritesString(h.A(h.Close()))
 ```
 
+Be aware that syntax checking is **not** performed by the compositor e.g there
+is nothing stopping incorrect attributes being used in tags, or tags not being closed etc.
+
 # Fetcher
 
 Fetcher is an interface to the Javascript [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-API which is usable with tinygo (which does not support net/http).
-It allows concurrent fetching of multiple files:
+API. This interface is usable with tinygo (which does not support net/http).
+It allows concurrent fetching of resources:
 
 ```
 	// Start fetching all the files required
@@ -71,6 +75,10 @@ It allows concurrent fetching of multiple files:
 	f2 := h.NewFetcher(w, "data/file2")
 	f3 := h.NewFetcher(w, "data/file3")
 	...
+	go func() {
+		val, err := f3.Get() // Blocks until file3 is read.
+		...
+	}
 	// Retrieve data only when available
 	if f1.Ready() {
 		data1, err := f1.Get()

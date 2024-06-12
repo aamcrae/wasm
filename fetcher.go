@@ -8,9 +8,9 @@ import (
 	"syscall/js"
 )
 
-// Fetcher is an interface to the JS fetch API.
+// fetcher is an interface to the JS fetch API.
 // It is suitable for use with tinygo.
-type Fetcher struct {
+type fetcher struct {
 	w      *Window
 	wg     sync.WaitGroup
 	data   []byte
@@ -21,10 +21,10 @@ type Fetcher struct {
 	ready  atomic.Bool
 }
 
-// NewFetcher returns a new instance of a fetcher.
+// newFetcher returns a new instance of a fetcher.
 // The JS fetch api is called to start the reading of the file.
-func NewFetcher(w *Window, url string) *Fetcher {
-	f := &Fetcher{w: w}
+func newFetcher(w *Window, url string) *fetcher {
+	f := &fetcher{w: w}
 	fPromise := w.window.Call("fetch", js.ValueOf(url))
 	f.wg.Add(1)
 	f.respF = js.FuncOf(f.response)
@@ -36,7 +36,7 @@ func NewFetcher(w *Window, url string) *Fetcher {
 
 // Get returns the data retrieved, or an error if the file
 // could not be accessed.
-func (f *Fetcher) Get() ([]byte, error) {
+func (f *fetcher) Get() ([]byte, error) {
 	f.wg.Wait()
 	f.errF.Release()
 	f.respF.Release()
@@ -45,18 +45,18 @@ func (f *Fetcher) Get() ([]byte, error) {
 }
 
 // Ready returns true if Get will succeed without block
-func (f *Fetcher) Ready() bool {
+func (f *fetcher) Ready() bool {
 	return f.ready.Load()
 }
 
-func (f *Fetcher) reject(this js.Value, args []js.Value) any {
+func (f *fetcher) reject(this js.Value, args []js.Value) any {
 	f.err = errors.New("Rejected")
 	f.wg.Done()
 	f.ready.Store(true)
 	return nil
 }
 
-func (f *Fetcher) response(this js.Value, args []js.Value) any {
+func (f *fetcher) response(this js.Value, args []js.Value) any {
 	ok := args[0].Get("ok")
 	if js.ValueOf(ok).Bool() == true {
 		// Accessing the data is done through a second promise.
@@ -71,7 +71,7 @@ func (f *Fetcher) response(this js.Value, args []js.Value) any {
 	return nil
 }
 
-func (f *Fetcher) dataReady(this js.Value, args []js.Value) any {
+func (f *fetcher) dataReady(this js.Value, args []js.Value) any {
 	f.data = []byte(js.ValueOf(args[0]).String())
 	f.wg.Done()
 	f.ready.Store(true)

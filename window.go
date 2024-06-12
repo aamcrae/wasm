@@ -204,9 +204,8 @@ func (w *Window) Wait() {
 }
 
 // Fetch retrieves the file from the server.
-func (w *Window) Fetch(file string) ([]byte, error) {
-	f := NewFetcher(w, file)
-	return f.Get()
+func (w *Window) Fetcher(file string) * fetcher {
+	return newFetcher(w, file)
 }
 
 // abs returns the absolute value of a value

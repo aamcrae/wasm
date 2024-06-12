@@ -100,6 +100,21 @@ func (h *HTML) Span(elems ...any) *frag {
 	return tag("span", elems)
 }
 
+// Ol builds a ordered list
+func (h *HTML) Ol(elems ...any) *frag {
+	return tag("ol", elems)
+}
+
+// Ul builds an unordered list
+func (h *HTML) Ul(elems ...any) *frag {
+	return tag("ul", elems)
+}
+
+// Li builds a list item element
+func (h *HTML) Li(elems ...any) *frag {
+	return tag("li", elems)
+}
+
 // Table builds a Table element
 func (h *HTML) Table(elems ...any) *frag {
 	return tag("table", elems)

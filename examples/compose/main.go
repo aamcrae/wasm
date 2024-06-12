@@ -23,5 +23,7 @@ func main() {
 		h.Wr(h.Tr(h.Close()))
 	}
 	h.Wr(h.Table(h.Close()))
+	h.Wr(h.P("Lists are supported as well"))
+	h.Wr(h.Ol(h.Li("item number one"), h.Li("Item number two"), h.Li("Item number three")))
 	w.Display(h.String())
 }

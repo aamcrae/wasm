@@ -204,8 +204,13 @@ func (w *Window) Wait() {
 }
 
 // Fetch retrieves the file from the server.
-func (w *Window) Fetcher(file string) * fetcher {
+func (w *Window) Fetcher(file string) *fetcher {
 	return newFetcher(w, file)
+}
+
+// HTML creates a new html composer
+func (w *Window) HTML() *html {
+	return new(html)
 }
 
 // abs returns the absolute value of a value

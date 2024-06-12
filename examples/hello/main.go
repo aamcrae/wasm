@@ -1,11 +1,11 @@
 package main
 
 import (
-	h "github.com/aamcrae/wasm"
+	"github.com/aamcrae/wasm"
 )
 
 func main() {
-	w := h.GetWindow()
+	w := html.GetWindow()
 	w.SetTitle("Hello to Go wasm!")
-	w.Display(h.H1("Hello, world!"))
+	w.Display(w.HTML().H1("Hello, world!").String())
 }

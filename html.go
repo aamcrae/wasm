@@ -15,158 +15,176 @@ const (
 	f_no_open
 	f_no_close
 	f_no_arg
+	f_tags
 )
 
+type frag struct {
+	strings.Builder
+}
+
+type html struct {
+	frag
+}
+
+// Short hand write
+func (h *html) Wr(s ...any) {
+	h.frag.wrAll(s, false)
+}
+
 // Text composes the list of elements to a single string
-func Text(s ...any) string {
-	_, other, flags := unpack(s)
+// No tags are allowed
+func (h *html) Text(s ...any) *frag {
+	f := new(frag)
+	attrs, other, flags := unpack(s)
 	if (flags & f_drop) != 0 {
-		return ""
+		return f
 	}
-	var b strings.Builder
-	wrAll(&b, other, false)
-	return b.String()
+	if (flags&f_tags) != 0 || len(attrs) > 0 {
+		panic("Tags in text")
+	}
+	f.wrAll(other, false)
+	return f
 }
 
 // H1 builds a H1 element
-func H1(elems ...any) string {
+func (h *html) H1(elems ...any) *frag {
 	return tag("h1", elems)
 }
 
 // H2 builds a H2 element
-func H2(elems ...any) string {
+func (h *html) H2(elems ...any) *frag {
 	return tag("h2", elems)
 }
 
 // H3 builds a H3 element
-func H3(elems ...any) string {
+func (h *html) H3(elems ...any) *frag {
 	return tag("h3", elems)
 }
 
 // H4 builds a H4 element
-func H4(elems ...any) string {
+func (h *html) H4(elems ...any) *frag {
 	return tag("h4", elems)
 }
 
 // H5 builds a H5 element
-func H5(elems ...any) string {
+func (h *html) H5(elems ...any) *frag {
 	return tag("h5", elems)
 }
 
 // H6 builds a H6 element
-func H6(elems ...any) string {
+func (h *html) H6(elems ...any) *frag {
 	return tag("h6", elems)
 }
 
 // Img builds a Img element
-func Img(elems ...any) string {
+func (h *html) Img(elems ...any) *frag {
 	return tag("img", elems)
 }
 
 // Div builds a Div element
-func Div(elems ...any) string {
+func (h *html) Div(elems ...any) *frag {
 	return tag("div", elems)
 }
 
 // A builds an anchor element
-func A(elems ...any) string {
+func (h *html) A(elems ...any) *frag {
 	return tag("a", elems)
 }
 
 // Span builds a span element
-func Span(elems ...any) string {
+func (h *html) Span(elems ...any) *frag {
 	return tag("span", elems)
 }
 
 // Table builds a Table element
-func Table(elems ...any) string {
+func (h *html) Table(elems ...any) *frag {
 	return tag("table", elems)
 }
 
 // Tr builds a table row element
-func Tr(elems ...any) string {
+func (h *html) Tr(elems ...any) *frag {
 	return tag("tr", elems)
 }
 
 // Td builds a table data element
-func Td(elems ...any) string {
+func (h *html) Td(elems ...any) *frag {
 	return tag("td", elems)
 }
 
 // P builds a paragraph element
-func P(elems ...any) string {
+func (h *html) P(elems ...any) *frag {
 	return tag("p", elems)
 }
 
 // Empty elements
 
 // Br builds a break element
-func Br(elems ...any) string {
+func (h *html) Br(elems ...any) *frag {
 	return emptyTag("br", elems)
 }
 
 // Hr builds a hr element
-func Hr(elems ...any) string {
+func (h *html) Hr(elems ...any) *frag {
 	return emptyTag("br", elems)
 }
 
 // Link builds a link element
-func Link(elems ...any) string {
+func (h *html) Link(elems ...any) *frag {
 	return emptyTag("link", elems)
 }
 
 // Attributes
 
-func Alt(s ...any) attr {
+func (h *html) Alt(s ...any) attr {
 	return attribute("alt", s)
 }
 
-func Title(s ...any) attr {
+func (h *html) Title(s ...any) attr {
 	return attribute("title", s)
 }
 
-func Src(s ...any) attr {
+func (h *html) Src(s ...any) attr {
 	return attribute("src", s)
 }
 
-func Onclick(s ...any) attr {
+func (h *html) Onclick(s ...any) attr {
 	return attribute("onclick", s)
 }
 
-func Href(s ...any) attr {
+func (h *html) Href(s ...any) attr {
 	return attribute("href", s)
 }
 
-func Rel(s ...any) attr {
+func (h *html) Rel(s ...any) attr {
 	return attribute("rel", s)
 }
 
-func Type(s ...any) attr {
+func (h *html) Type(s ...any) attr {
 	return attribute("type", s)
 }
 
-func Border(s ...any) attr {
+func (h *html) Border(s ...any) attr {
 	return attribute("border", s)
 }
 
-func Summary(s ...any) attr {
+func (h *html) Summary(s ...any) attr {
 	return attribute("summary", s)
 }
 
-func Class(s ...any) attr {
+func (h *html) Class(s ...any) attr {
 	return attribute("class", s)
 }
 
-func Id(s ...any) attr {
+func (h *html) Id(s ...any) attr {
 	return attribute("id", s)
 }
 
-func Style(s ...any) attr {
+func (h *html) Style(s ...any) attr {
 	return attribute("style", s)
 }
 
 // If no arguments, skip setting the value.
-func Download(s ...any) attr {
+func (h *html) Download(s ...any) attr {
 	if len(s) == 0 {
 		s = []any{flag(f_no_arg)}
 	}
@@ -179,7 +197,7 @@ func Download(s ...any) attr {
  */
 
 // If will drop this element if the condition is false
-func If(c bool) flag {
+func (h *html) If(c bool) flag {
 	if !c {
 		return f_drop
 	} else {
@@ -188,59 +206,62 @@ func If(c bool) flag {
 }
 
 // For non-empty tags, do not generate the closing tag
-func Open() flag {
+func (h *html) Open() flag {
 	return f_no_close
 }
 
 // For non-empty tags, generate the closing tag.
-func Close() flag {
+func (h *html) Close() flag {
 	return f_no_open
 }
 
-func tag(nm string, elems []any) string {
+func tag(nm string, elems []any) *frag {
 	return wrTag(nm, elems, false)
 }
 
-func emptyTag(nm string, elems []any) string {
+func emptyTag(nm string, elems []any) *frag {
 	return wrTag(nm, elems, true)
 }
 
-func wrTag(nm string, elems []any, empty bool) string {
+func wrTag(nm string, elems []any, empty bool) *frag {
+	f := new(frag)
 	attrs, other, flags := unpack(elems)
 	if (flags & f_drop) != 0 {
-		return ""
+		return f
 	}
-	var sb strings.Builder
 	if (flags & f_no_open) == 0 {
-		sb.WriteRune('<')
-		sb.WriteString(nm)
-		wrAll(&sb, attrs, true)
-		sb.WriteRune('>')
+		f.WriteRune('<')
+		f.WriteString(nm)
+		f.wrAll(attrs, true)
+		f.WriteRune('>')
 	}
-	wrAll(&sb, other, false)
+	f.wrAll(other, false)
 	if !empty && (flags&f_no_close) == 0 {
-		sb.WriteString("</")
-		sb.WriteString(nm)
-		sb.WriteRune('>')
+		f.WriteString("</")
+		f.WriteString(nm)
+		f.WriteRune('>')
 	}
-	return sb.String()
+	return f
 }
 
 func attribute(nm string, elems []any) attr {
 	attrs, other, flags := unpack(elems)
-	if (flags&f_drop) != 0 || len(attrs) > 0 {
+	if (flags&f_tags) != 0 || len(attrs) > 0 {
+		panic("Illegal attribute")
+	}
+	if (flags & f_drop) != 0 {
 		return ""
 	}
-	var sb strings.Builder
+	f := new(frag)
 	// Leave a space before each attribute.
-	sb.WriteRune(' ')
-	sb.WriteString(nm)
+	f.WriteRune(' ')
+	f.WriteString(nm)
 	if (flags & f_no_arg) == 0 {
-		sb.WriteString("=\"")
-		wrAll(&sb, other, false)
-		sb.WriteString("\"")
+		f.WriteString("=\"")
+		f.wrAll(other, false)
+		f.WriteString("\"")
 	}
-	return attr(sb.String())
+	return attr(f.String())
 }
 
 func unpack(s []any) ([]any, []any, flag) {
@@ -249,6 +270,9 @@ func unpack(s []any) ([]any, []any, flag) {
 	var flags flag
 	for _, ele := range s {
 		switch v := ele.(type) {
+		case *frag:
+			flags |= f_tags
+			other = append(other, ele)
 		case attr:
 			attrs = append(attrs, ele)
 		case flag:
@@ -260,27 +284,29 @@ func unpack(s []any) ([]any, []any, flag) {
 	return attrs, other, flags
 }
 
-func wrAll(sb *strings.Builder, s []any, space bool) {
+func (f *frag) wrAll(s []any, space bool) {
 	for _, ele := range s {
 		if space {
-			sb.WriteRune(' ')
+			f.WriteRune(' ')
 		}
-		wr(sb, ele)
+		f.wr(ele)
 	}
 }
 
-func wr(sb *strings.Builder, s any) {
+func (f *frag) wr(s any) {
 	switch v := s.(type) {
 	case string:
-		sb.WriteString(v)
+		f.WriteString(v)
 	case attr:
-		sb.WriteString(string(v))
+		f.WriteString(string(v))
 	case []byte:
-		sb.Write(v)
+		f.Write(v)
 	case rune:
-		sb.WriteRune(v)
+		f.WriteRune(v)
 	case int:
-		sb.WriteString(strconv.FormatInt(int64(v), 10))
+		f.WriteString(strconv.FormatInt(int64(v), 10))
+	case *frag:
+		f.WriteString(v.String())
 	default:
 		panic("wr: Unknown type")
 	}

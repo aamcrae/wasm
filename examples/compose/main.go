@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	w := html.GetWindow()
+	w := wasm.GetWindow()
 	w.SetTitle("Compositor examples!")
-	h := new(html.HTML)
+	h := new(wasm.HTML)
 	h.Wr(h.H1("Compositor examples"))
 	h.Wr(h.P("Text and numbers (e.g: ", 1234, " and ", 5678, ") can be intermingled", h.Br(),
 		"as well as other elements like br"))

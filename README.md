@@ -14,9 +14,9 @@ Window is a simple interface to the browser DOM, allowing callbacks
 to be added for keyboard shortcuts, window resizing, swipe gestures:
 
 ```
-	w := html.Window()
-	w.OnSwipe(func (d html.Direction) bool {
-		if d == html.Right {
+	w := wasm.Window()
+	w.OnSwipe(func (d wasm.Direction) bool {
+		if d == wasm.Right {
 			...
 			return true // Right swipe is handled
 		}
@@ -38,8 +38,8 @@ import (
 	"github.com/aamcrae/wasm"
 )
 ...
-	w := html.Window()
-	h := html.NewHTML()
+	w := wasm.Window()
+	h := wasm.NewHTML()
 	h.Wr(h.H1("Title Page"))
 	h.Wr(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("flower.jpg"), h.Alt("Flower"))))
 	h.Wr(h.Span(h.Class("myspan"), h.Open()) // Don't close tag

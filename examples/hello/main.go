@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	w := html.GetWindow()
+	w := wasm.GetWindow()
 	w.SetTitle("Hello to Go wasm!")
-	w.Display(new(html.HTML).H1("Hello, world!").String())
+	w.Display(new(wasm.HTML).H1("Hello, world!").String())
 }

@@ -14,9 +14,9 @@ Window is a simple interface to the browser DOM, allowing callbacks
 to be added for keyboard shortcuts, window resizing, swipe gestures:
 
 ```
-	w := h.Window()
-	w.OnSwipe(func (d h.Direction) bool {
-		if d == h.Right {
+	w := html.Window()
+	w.OnSwipe(func (d html.Direction) bool {
+		if d == html.Right {
 			...
 			return true // Right swipe is handled
 		}
@@ -35,18 +35,18 @@ where required, and common attributes are supported. For example:
 
 ```
 import (
-	h "github.com/aamcrae/wasm"
+	"github.com/aamcrae/wasm"
 )
 ...
-	w := h.Window()
-	vars b string.Builder
-	b.WriteString(h.H1("Title Page"))
-	b.WriteString(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("flower.jpg"), h.Alt("Flower"))))
-	b.WriteString(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
-	b.WriteString(h.P("This is a paragraph", h.Br("with a break in it)))
-	b.WriteString(h.Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
-	b.WriteString(h.Span(h.Close())) // Now add the closing tag for span
-	w.Display(b.String())
+	w := html.Window()
+	h := html.NewHTML()
+	h.Wr(h.H1("Title Page"))
+	h.Wr(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("flower.jpg"), h.Alt("Flower"))))
+	h.Wr(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
+	h.Wr(h.P("This is a paragraph", h.Br("with a break in it)))
+	h.Wr(h.Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
+	h.Wr(h.Span(h.Close())) // Now add the closing tag for span
+	w.Display(h.String())
 ```
 
 Modifiers and conditionals are allowed so that the flow can be maintained when
@@ -54,13 +54,13 @@ deeply embedded functions are used (without resorting to if/else control flow):
 
 ```
 	// Only display title if it is not empty
-	b.WriteString(h.H1(h.If(len(title) > 0), title))
-	b.WriteString(h.A(h.Open(), h.Id("id", i), h.Href("#")))
+	h.Wr(h.H1(h.If(len(title) > 0), title))
+	h.Wr(h.A(h.Open(), h.Id("id", i), h.Href("#")))
 	// complicated code to generate anchor
-	b.WritesString(h.A(h.Close()))
+	h.Wr(h.A(h.Close()))
 ```
 
-Be aware that syntax checking is **not** performed by the compositor e.g there
+Be aware that complete syntax checking is **not** performed by the compositor e.g there
 is nothing stopping incorrect attributes being used in tags, or tags not being closed etc.
 
 # Fetcher
@@ -71,9 +71,9 @@ It allows concurrent fetching of resources:
 
 ```
 	// Start fetching all the files required
-	f1 := h.NewFetcher(w, "data/file1")
-	f2 := h.NewFetcher(w, "data/file2")
-	f3 := h.NewFetcher(w, "data/file3")
+	f1 := w.Fetcher("data/file1")
+	f2 := w.Fetcher("data/file2")
+	f3 := w.Fetcher("data/file3")
 	...
 	go func() {
 		val, err := f3.Get() // Blocks until file3 is read.

@@ -208,11 +208,6 @@ func (w *Window) Fetcher(file string) *fetcher {
 	return newFetcher(w, file)
 }
 
-// HTML creates a new html composer
-func (w *Window) HTML() *html {
-	return new(html)
-}
-
 // abs returns the absolute value of a value
 func abs(a int) int {
 	if a < 0 {

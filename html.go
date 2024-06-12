@@ -22,169 +22,173 @@ type frag struct {
 	strings.Builder
 }
 
-type html struct {
+type HTML struct {
 	frag
 }
 
+func NewHTML() *HTML {
+	return new(HTML)
+}
+
 // Short hand write
-func (h *html) Wr(s ...any) {
+func (h *HTML) Wr(s ...any) {
 	h.frag.wrAll(s, false)
 }
 
 // Text composes the list of elements to a single string
-// No tags are allowed
-func (h *html) Text(s ...any) *frag {
-	f := new(frag)
+// No tags are allowed, and a string is returned.
+func (h *HTML) Text(s ...any) string {
 	attrs, other, flags := unpack(s)
 	if (flags & f_drop) != 0 {
-		return f
+		return ""
 	}
 	if (flags&f_tags) != 0 || len(attrs) > 0 {
 		panic("Tags in text")
 	}
+	f := new(frag)
 	f.wrAll(other, false)
-	return f
+	return f.String()
 }
 
 // H1 builds a H1 element
-func (h *html) H1(elems ...any) *frag {
+func (h *HTML) H1(elems ...any) *frag {
 	return tag("h1", elems)
 }
 
 // H2 builds a H2 element
-func (h *html) H2(elems ...any) *frag {
+func (h *HTML) H2(elems ...any) *frag {
 	return tag("h2", elems)
 }
 
 // H3 builds a H3 element
-func (h *html) H3(elems ...any) *frag {
+func (h *HTML) H3(elems ...any) *frag {
 	return tag("h3", elems)
 }
 
 // H4 builds a H4 element
-func (h *html) H4(elems ...any) *frag {
+func (h *HTML) H4(elems ...any) *frag {
 	return tag("h4", elems)
 }
 
 // H5 builds a H5 element
-func (h *html) H5(elems ...any) *frag {
+func (h *HTML) H5(elems ...any) *frag {
 	return tag("h5", elems)
 }
 
 // H6 builds a H6 element
-func (h *html) H6(elems ...any) *frag {
+func (h *HTML) H6(elems ...any) *frag {
 	return tag("h6", elems)
 }
 
 // Img builds a Img element
-func (h *html) Img(elems ...any) *frag {
+func (h *HTML) Img(elems ...any) *frag {
 	return tag("img", elems)
 }
 
 // Div builds a Div element
-func (h *html) Div(elems ...any) *frag {
+func (h *HTML) Div(elems ...any) *frag {
 	return tag("div", elems)
 }
 
 // A builds an anchor element
-func (h *html) A(elems ...any) *frag {
+func (h *HTML) A(elems ...any) *frag {
 	return tag("a", elems)
 }
 
 // Span builds a span element
-func (h *html) Span(elems ...any) *frag {
+func (h *HTML) Span(elems ...any) *frag {
 	return tag("span", elems)
 }
 
 // Table builds a Table element
-func (h *html) Table(elems ...any) *frag {
+func (h *HTML) Table(elems ...any) *frag {
 	return tag("table", elems)
 }
 
 // Tr builds a table row element
-func (h *html) Tr(elems ...any) *frag {
+func (h *HTML) Tr(elems ...any) *frag {
 	return tag("tr", elems)
 }
 
 // Td builds a table data element
-func (h *html) Td(elems ...any) *frag {
+func (h *HTML) Td(elems ...any) *frag {
 	return tag("td", elems)
 }
 
 // P builds a paragraph element
-func (h *html) P(elems ...any) *frag {
+func (h *HTML) P(elems ...any) *frag {
 	return tag("p", elems)
 }
 
 // Empty elements
 
 // Br builds a break element
-func (h *html) Br(elems ...any) *frag {
+func (h *HTML) Br(elems ...any) *frag {
 	return emptyTag("br", elems)
 }
 
 // Hr builds a hr element
-func (h *html) Hr(elems ...any) *frag {
+func (h *HTML) Hr(elems ...any) *frag {
 	return emptyTag("br", elems)
 }
 
 // Link builds a link element
-func (h *html) Link(elems ...any) *frag {
+func (h *HTML) Link(elems ...any) *frag {
 	return emptyTag("link", elems)
 }
 
 // Attributes
 
-func (h *html) Alt(s ...any) attr {
+func (h *HTML) Alt(s ...any) attr {
 	return attribute("alt", s)
 }
 
-func (h *html) Title(s ...any) attr {
+func (h *HTML) Title(s ...any) attr {
 	return attribute("title", s)
 }
 
-func (h *html) Src(s ...any) attr {
+func (h *HTML) Src(s ...any) attr {
 	return attribute("src", s)
 }
 
-func (h *html) Onclick(s ...any) attr {
+func (h *HTML) Onclick(s ...any) attr {
 	return attribute("onclick", s)
 }
 
-func (h *html) Href(s ...any) attr {
+func (h *HTML) Href(s ...any) attr {
 	return attribute("href", s)
 }
 
-func (h *html) Rel(s ...any) attr {
+func (h *HTML) Rel(s ...any) attr {
 	return attribute("rel", s)
 }
 
-func (h *html) Type(s ...any) attr {
+func (h *HTML) Type(s ...any) attr {
 	return attribute("type", s)
 }
 
-func (h *html) Border(s ...any) attr {
+func (h *HTML) Border(s ...any) attr {
 	return attribute("border", s)
 }
 
-func (h *html) Summary(s ...any) attr {
+func (h *HTML) Summary(s ...any) attr {
 	return attribute("summary", s)
 }
 
-func (h *html) Class(s ...any) attr {
+func (h *HTML) Class(s ...any) attr {
 	return attribute("class", s)
 }
 
-func (h *html) Id(s ...any) attr {
+func (h *HTML) Id(s ...any) attr {
 	return attribute("id", s)
 }
 
-func (h *html) Style(s ...any) attr {
+func (h *HTML) Style(s ...any) attr {
 	return attribute("style", s)
 }
 
 // If no arguments, skip setting the value.
-func (h *html) Download(s ...any) attr {
+func (h *HTML) Download(s ...any) attr {
 	if len(s) == 0 {
 		s = []any{flag(f_no_arg)}
 	}
@@ -197,7 +201,7 @@ func (h *html) Download(s ...any) attr {
  */
 
 // If will drop this element if the condition is false
-func (h *html) If(c bool) flag {
+func (h *HTML) If(c bool) flag {
 	if !c {
 		return f_drop
 	} else {
@@ -206,12 +210,12 @@ func (h *html) If(c bool) flag {
 }
 
 // For non-empty tags, do not generate the closing tag
-func (h *html) Open() flag {
+func (h *HTML) Open() flag {
 	return f_no_close
 }
 
 // For non-empty tags, generate the closing tag.
-func (h *html) Close() flag {
+func (h *HTML) Close() flag {
 	return f_no_open
 }
 

@@ -7,5 +7,5 @@ import (
 func main() {
 	w := html.GetWindow()
 	w.SetTitle("Hello to Go wasm!")
-	w.Display(w.HTML().H1("Hello, world!").String())
+	w.Display(new(html.HTML).H1("Hello, world!").String())
 }

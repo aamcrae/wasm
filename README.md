@@ -43,7 +43,7 @@ import (
 	h.Wr(h.H1("Title Page"))
 	h.Wr(h.A(h.Href("page/index.html"), h.Id("myid"), h.Img(h.Class("image"), h.Src("flower.jpg"), h.Alt("Flower"))))
 	h.Wr(h.Span(h.Class("myspan"), h.Open()) // Don't close tag
-	h.Wr(h.P("This is a paragraph", h.Br("with a break in it)))
+	h.Wr(h.P("This is a paragraph", h.Br(), "with a break in it)))
 	h.Wr(h.Text("Combining numbers ", 12345, ", runes ", ' ', rune(0x21A7), " and strings"))
 	h.Wr(h.Span(h.Close())) // Now add the closing tag for span
 	w.Display(h.String())

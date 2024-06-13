@@ -41,7 +41,9 @@ attributes:
  - alt
  - border
  - class
+ - content
  - for
+ - height
  - href
  - id
  - method
@@ -56,6 +58,7 @@ attributes:
  - title
  - type
  - value
+ - width
 attr-noarg:
  - download
  - checked

@@ -161,8 +161,16 @@ func (h *HTML) Class(elems ...any) attr {
 	return attribute("class", elems)
 }
 
+func (h *HTML) Content(elems ...any) attr {
+	return attribute("content", elems)
+}
+
 func (h *HTML) For(elems ...any) attr {
 	return attribute("for", elems)
+}
+
+func (h *HTML) Height(elems ...any) attr {
+	return attribute("height", elems)
 }
 
 func (h *HTML) Href(elems ...any) attr {
@@ -219,6 +227,10 @@ func (h *HTML) Type(elems ...any) attr {
 
 func (h *HTML) Value(elems ...any) attr {
 	return attribute("value", elems)
+}
+
+func (h *HTML) Width(elems ...any) attr {
+	return attribute("width", elems)
 }
 
 func (h *HTML) Download(elems ...any) attr {

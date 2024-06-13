@@ -1,46 +1,46 @@
 tags:
+ - a
+ - div
+ - form
  - h1
  - h2
  - h3
  - h4
  - h5
  - h6
- - div
- - a
- - span
- - ol
- - form
- - label
  - input
- - ul
+ - label
  - li
+ - ol
+ - p
+ - span
  - table
  - tbody
- - tr
  - td
- - p
+ - tr
+ - ul
 emptytags:
  - br
  - hr
- - link
  - img
+ - link
 attributes:
  - alt
- - title
- - src
+ - border
+ - class
  - for
+ - href
+ - id
  - name
  - onclick
  - onsubmit
- - href
  - rel
- - type
- - border
- - summary
- - class
- - id
  - size
+ - src
  - style
+ - summary
+ - title
+ - type
  - value
 attr-noarg:
  - download

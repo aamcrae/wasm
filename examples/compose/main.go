@@ -11,7 +11,7 @@ import (
 func main() {
 	w := wasm.GetWindow()
 	w.SetTitle("Compositor examples!")
-	w.AddStyle(".cell { text-align: right; width: 2em;}")
+	w.AddStyle("body { background-color: #CCCCCC} .cell { text-align: right; width: 2em;}")
 	w.AddJSFunction("runTables", func(js.Value, []js.Value) any {
 		TimesTable(w)
 		return js.ValueOf(false)
@@ -36,10 +36,16 @@ func main() {
 
 func TimesTable(w *wasm.Window) {
 	d := w.GetById("data")
+	mValue := w.GetById("max")
 	var max int
-	fmt.Sscanf(w.GetById("max").Get("value").String(), "%d", &max)
-	if max < 1 || max > 30 {
-		return
+	fmt.Sscanf(mValue.Get("value").String(), "%d", &max)
+	if max < 1 {
+		max = 1
+		mValue.Set("value", js.ValueOf("1"))
+	}
+	if max > 30 {
+		max = 30
+		mValue.Set("value", js.ValueOf("30"))
 	}
 	h := new(wasm.HTML)
 	for i := 1; i <= max; i++ {

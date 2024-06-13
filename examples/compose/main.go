@@ -1,12 +1,21 @@
 package main
 
 import (
+	"fmt"
+
+	"syscall/js"
+
 	"github.com/aamcrae/wasm"
 )
 
 func main() {
 	w := wasm.GetWindow()
 	w.SetTitle("Compositor examples!")
+	w.AddStyle(".cell { text-align: right; width: 2em;}")
+	w.AddJSFunction("runTables", func(js.Value, []js.Value) any {
+		TimesTable(w)
+		return js.ValueOf(false)
+	})
 	h := new(wasm.HTML)
 	h.Wr(h.H1("Compositor examples"))
 	h.Wr(h.P("Text and numbers (e.g: ", 1234, " and ", 5678, ") can be intermingled", h.Br(),
@@ -14,16 +23,31 @@ func main() {
 	h.Wr(h.P("and runes (", rune(0x21A7), ")"))
 	h.Wr(h.P(h.Style("font-weight:bold; font-size: large"), "Here is a large, bold link to ", h.A(h.Href("../hello/index.html"), "Hello World")))
 	h.Wr(h.H2("Tables are supported"))
-	h.Wr(h.Table(h.Open(), h.Summary("times table"), h.Border(2)))
-	for i := 1; i <= 10; i++ {
-		h.Wr(h.Tr(h.Open()))
-		for j := 1; j <= 10; j++ {
-			h.Wr(h.Td(i * j))
-		}
-		h.Wr(h.Tr(h.Close()))
-	}
-	h.Wr(h.Table(h.Close()))
+	h.Wr(h.Form(h.Onsubmit("return runTables()"),
+		h.Span(h.Input(h.Id("max"), h.Type("number"), h.Value("10")),
+		h.Input(h.Type("Submit"),  h.Value("Run")))))
+	h.Wr(h.P(h.Table(h.Summary("times table"), h.Border(2), h.Tbody(h.Id("data"))).String()))
 	h.Wr(h.P("Lists are supported as well"))
 	h.Wr(h.Ol(h.Li("item number one"), h.Li("Item number two"), h.Li("Item number three")))
 	w.Display(h.String())
+	TimesTable(w)
+	w.Wait()
+}
+
+func TimesTable(w *wasm.Window) {
+	d := w.GetById("data")
+	var max int
+	fmt.Sscanf(w.GetById("max").Get("value").String(), "%d", &max)
+	if max < 1 || max > 30 {
+		return
+	}
+	h := new(wasm.HTML)
+	for i := 1; i <= max; i++ {
+		h.Wr(h.Tr(h.Open()))
+		for j := 1; j <= max; j++ {
+			h.Wr(h.Td(h.Class("cell"), i * j))
+		}
+		h.Wr(h.Tr(h.Close()))
+	}
+	d.Set("innerHTML", h.String())
 }

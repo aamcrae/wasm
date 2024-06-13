@@ -80,11 +80,6 @@ func (h *HTML) H6(elems ...any) *frag {
 	return tag("h6", elems)
 }
 
-// Img builds a Img element
-func (h *HTML) Img(elems ...any) *frag {
-	return tag("img", elems)
-}
-
 // Div builds a Div element
 func (h *HTML) Div(elems ...any) *frag {
 	return tag("div", elems)
@@ -105,6 +100,21 @@ func (h *HTML) Ol(elems ...any) *frag {
 	return tag("ol", elems)
 }
 
+// Form builds a form element
+func (h *HTML) Form(elems ...any) *frag {
+	return tag("form", elems)
+}
+
+// Label builds a label element
+func (h *HTML) Label(elems ...any) *frag {
+	return tag("label", elems)
+}
+
+// Input builds an input element
+func (h *HTML) Input(elems ...any) *frag {
+	return tag("input", elems)
+}
+
 // Ul builds an unordered list
 func (h *HTML) Ul(elems ...any) *frag {
 	return tag("ul", elems)
@@ -118,6 +128,11 @@ func (h *HTML) Li(elems ...any) *frag {
 // Table builds a Table element
 func (h *HTML) Table(elems ...any) *frag {
 	return tag("table", elems)
+}
+
+// Tbody builds a Table body element
+func (h *HTML) Tbody(elems ...any) *frag {
+	return tag("tbody", elems)
 }
 
 // Tr builds a table row element
@@ -144,12 +159,17 @@ func (h *HTML) Br(elems ...any) *frag {
 
 // Hr builds a hr element
 func (h *HTML) Hr(elems ...any) *frag {
-	return emptyTag("br", elems)
+	return emptyTag("hr", elems)
 }
 
 // Link builds a link element
 func (h *HTML) Link(elems ...any) *frag {
 	return emptyTag("link", elems)
+}
+
+// Img builds a Img element
+func (h *HTML) Img(elems ...any) *frag {
+	return emptyTag("img", elems)
 }
 
 // Attributes
@@ -166,8 +186,20 @@ func (h *HTML) Src(s ...any) attr {
 	return attribute("src", s)
 }
 
+func (h *HTML) For(s ...any) attr {
+	return attribute("For", s)
+}
+
+func (h *HTML) Name(s ...any) attr {
+	return attribute("name", s)
+}
+
 func (h *HTML) Onclick(s ...any) attr {
 	return attribute("onclick", s)
+}
+
+func (h *HTML) Onsubmit(s ...any) attr {
+	return attribute("onsubmit", s)
 }
 
 func (h *HTML) Href(s ...any) attr {
@@ -198,8 +230,16 @@ func (h *HTML) Id(s ...any) attr {
 	return attribute("id", s)
 }
 
+func (h *HTML) Size(s ...any) attr {
+	return attribute("size", s)
+}
+
 func (h *HTML) Style(s ...any) attr {
 	return attribute("style", s)
+}
+
+func (h *HTML) Value(s ...any) attr {
+	return attribute("value", s)
 }
 
 // If no arguments, skip setting the value.
@@ -273,7 +313,6 @@ func attribute(nm string, elems []any) attr {
 	}
 	f := new(frag)
 	// Leave a space before each attribute.
-	f.WriteRune(' ')
 	f.WriteString(nm)
 	if (flags & f_no_arg) == 0 {
 		f.WriteString("=\"")

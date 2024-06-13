@@ -70,7 +70,6 @@ func main() {
 	for i, k := range order {
 		t := template.Must(template.New(k).Parse(templates[i]))
 		for _, n := range m[k] {
-			//n := e.(string)
 			err := t.Execute(of, Name{Name: n, Cname: c.String(n)})
 			if err != nil {
 				log.Fatalf("%s: %v", *output, err)

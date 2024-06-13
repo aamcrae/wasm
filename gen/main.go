@@ -42,15 +42,9 @@ const attrNoArgTempl = `func (h *HTML) {{.Cname}}(elems ...any) attr {
 
 `
 
-var tMap map[string]string = map[string]string{
-	"tags":       tagTempl,
-	"emptytags":  emptyTagTempl,
-	"attributes": attrTempl,
-	"attr-noarg": attrNoArgTempl,
-}
-
-// We don't rely on map ordering.
+// Fix order of types
 var order []string = []string{"tags", "emptytags", "attributes", "attr-noarg"}
+var templates []string = []string{tagTempl, emptyTagTempl, attrTempl, attrNoArgTempl}
 
 func main() {
 	flag.Parse()
@@ -73,8 +67,8 @@ func main() {
 	fmt.Fprintf(of, "package %s\n\n", *pkg)
 	c := cases.Title(language.English)
 
-	for _, k := range order {
-		t := template.Must(template.New(k).Parse(tMap[k]))
+	for i, k := range order {
+		t := template.Must(template.New(k).Parse(templates[i]))
 		for _, n := range m[k] {
 			//n := e.(string)
 			err := t.Execute(of, Name{Name: n, Cname: c.String(n)})

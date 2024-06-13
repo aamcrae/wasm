@@ -1,88 +1,12 @@
 // DO NOT EDIT - generated file
 package wasm
 
-func (h *HTML) Alt(elems ...any) attr {
-	return attribute("alt", elems)
-}
-
-func (h *HTML) Border(elems ...any) attr {
-	return attribute("border", elems)
-}
-
-func (h *HTML) Class(elems ...any) attr {
-	return attribute("class", elems)
-}
-
-func (h *HTML) For(elems ...any) attr {
-	return attribute("for", elems)
-}
-
-func (h *HTML) Href(elems ...any) attr {
-	return attribute("href", elems)
-}
-
-func (h *HTML) Id(elems ...any) attr {
-	return attribute("id", elems)
-}
-
-func (h *HTML) Name(elems ...any) attr {
-	return attribute("name", elems)
-}
-
-func (h *HTML) Onclick(elems ...any) attr {
-	return attribute("onclick", elems)
-}
-
-func (h *HTML) Onsubmit(elems ...any) attr {
-	return attribute("onsubmit", elems)
-}
-
-func (h *HTML) Rel(elems ...any) attr {
-	return attribute("rel", elems)
-}
-
-func (h *HTML) Size(elems ...any) attr {
-	return attribute("size", elems)
-}
-
-func (h *HTML) Src(elems ...any) attr {
-	return attribute("src", elems)
-}
-
-func (h *HTML) Style(elems ...any) attr {
-	return attribute("style", elems)
-}
-
-func (h *HTML) Summary(elems ...any) attr {
-	return attribute("summary", elems)
-}
-
-func (h *HTML) Title(elems ...any) attr {
-	return attribute("title", elems)
-}
-
-func (h *HTML) Type(elems ...any) attr {
-	return attribute("type", elems)
-}
-
-func (h *HTML) Value(elems ...any) attr {
-	return attribute("value", elems)
-}
-
-func (h *HTML) Download(elems ...any) attr {
-	return attrNoArg("download", elems)
-}
-
-func (h *HTML) Checked(elems ...any) attr {
-	return attrNoArg("checked", elems)
-}
-
-func (h *HTML) Disabled(elems ...any) attr {
-	return attrNoArg("disabled", elems)
-}
-
 func (h *HTML) A(elems ...any) *frag {
 	return tag("a", elems)
+}
+
+func (h *HTML) Button(elems ...any) *frag {
+	return tag("button", elems)
 }
 
 func (h *HTML) Div(elems ...any) *frag {
@@ -213,3 +137,82 @@ func (h *HTML) Wbr(elems ...any) *frag {
 	return emptyTag("wbr", elems)
 }
 
+func (h *HTML) Alt(elems ...any) attr {
+	return attribute("alt", elems)
+}
+
+func (h *HTML) Border(elems ...any) attr {
+	return attribute("border", elems)
+}
+
+func (h *HTML) Class(elems ...any) attr {
+	return attribute("class", elems)
+}
+
+func (h *HTML) For(elems ...any) attr {
+	return attribute("for", elems)
+}
+
+func (h *HTML) Href(elems ...any) attr {
+	return attribute("href", elems)
+}
+
+func (h *HTML) Id(elems ...any) attr {
+	return attribute("id", elems)
+}
+
+func (h *HTML) Name(elems ...any) attr {
+	return attribute("name", elems)
+}
+
+func (h *HTML) Onclick(elems ...any) attr {
+	return attribute("onclick", elems)
+}
+
+func (h *HTML) Onsubmit(elems ...any) attr {
+	return attribute("onsubmit", elems)
+}
+
+func (h *HTML) Rel(elems ...any) attr {
+	return attribute("rel", elems)
+}
+
+func (h *HTML) Size(elems ...any) attr {
+	return attribute("size", elems)
+}
+
+func (h *HTML) Src(elems ...any) attr {
+	return attribute("src", elems)
+}
+
+func (h *HTML) Style(elems ...any) attr {
+	return attribute("style", elems)
+}
+
+func (h *HTML) Summary(elems ...any) attr {
+	return attribute("summary", elems)
+}
+
+func (h *HTML) Title(elems ...any) attr {
+	return attribute("title", elems)
+}
+
+func (h *HTML) Type(elems ...any) attr {
+	return attribute("type", elems)
+}
+
+func (h *HTML) Value(elems ...any) attr {
+	return attribute("value", elems)
+}
+
+func (h *HTML) Download(elems ...any) attr {
+	return attrNoArg("download", elems)
+}
+
+func (h *HTML) Checked(elems ...any) attr {
+	return attrNoArg("checked", elems)
+}
+
+func (h *HTML) Disabled(elems ...any) attr {
+	return attrNoArg("disabled", elems)
+}

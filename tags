@@ -1,5 +1,6 @@
 tags:
  - a
+ - button
  - div
  - form
  - h1
@@ -12,7 +13,9 @@ tags:
  - label
  - li
  - ol
+ - option
  - p
+ - select
  - span
  - table
  - tbody
@@ -34,12 +37,14 @@ emptytags:
  - track
  - wbr
 attributes:
+ - action
  - alt
  - border
  - class
  - for
  - href
  - id
+ - method
  - name
  - onclick
  - onsubmit
@@ -55,3 +60,4 @@ attr-noarg:
  - download
  - checked
  - disabled
+ - selected

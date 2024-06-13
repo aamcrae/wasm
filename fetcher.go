@@ -25,7 +25,7 @@ type fetcher struct {
 // The JS fetch api is called to start the reading of the file.
 func newFetcher(w *Window, url string) *fetcher {
 	f := &fetcher{w: w}
-	fPromise := w.window.Call("fetch", js.ValueOf(url))
+	fPromise := w.Window.Call("fetch", js.ValueOf(url))
 	f.wg.Add(1)
 	f.respF = js.FuncOf(f.response)
 	f.errF = js.FuncOf(f.reject)

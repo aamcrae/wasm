@@ -30,12 +30,13 @@ func main() {
 
 func get(w *html.Window, c chan string, file string) {
 	f := w.Fetcher(file)
-	if s, err := f.Get(); err != nil {
+	if b, err := f.Get(); err != nil {
 		c <- fmt.Sprintf("%s error %v", file, err)
 	} else {
+		s := strings.TrimRight(string(b), "\n") // Remove trailing return
 		h := new(html.HTML)
 		h.Wr(h.P(h.Open()))
-		for _, l := range strings.Split(string(s), "\n") {
+		for _, l := range strings.Split(s, "\n") {
 			h.Wr(l, h.Br())
 		}
 		h.Wr(h.P(h.Close()))

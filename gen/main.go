@@ -49,6 +49,9 @@ var tMap map[string]string = map[string]string{
 	"attr-noarg": attrNoArgTempl,
 }
 
+// We don't rely on map ordering.
+var order []string = []string{"tags", "emptytags", "attributes", "attr-noarg"}
+
 func main() {
 	flag.Parse()
 
@@ -56,7 +59,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("%s: %v", *input, err)
 	}
-	m := make(map[any][]any)
+	m := make(map[string][]string)
 	err = yaml.Unmarshal(data, &m)
 	if err != nil {
 		log.Fatalf("%s: %v", *input, err)
@@ -70,10 +73,10 @@ func main() {
 	fmt.Fprintf(of, "package %s\n\n", *pkg)
 	c := cases.Title(language.English)
 
-	for k, v := range tMap {
-		t := template.Must(template.New(k).Parse(v))
-		for _, e := range m[k] {
-			n := e.(string)
+	for _, k := range order {
+		t := template.Must(template.New(k).Parse(tMap[k]))
+		for _, n := range m[k] {
+			//n := e.(string)
 			err := t.Execute(of, Name{Name: n, Cname: c.String(n)})
 			if err != nil {
 				log.Fatalf("%s: %v", *output, err)

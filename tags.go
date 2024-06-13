@@ -57,8 +57,16 @@ func (h *HTML) Ol(elems ...any) *frag {
 	return tag("ol", elems)
 }
 
+func (h *HTML) Option(elems ...any) *frag {
+	return tag("option", elems)
+}
+
 func (h *HTML) P(elems ...any) *frag {
 	return tag("p", elems)
+}
+
+func (h *HTML) Select(elems ...any) *frag {
+	return tag("select", elems)
 }
 
 func (h *HTML) Span(elems ...any) *frag {
@@ -137,6 +145,10 @@ func (h *HTML) Wbr(elems ...any) *frag {
 	return emptyTag("wbr", elems)
 }
 
+func (h *HTML) Action(elems ...any) attr {
+	return attribute("action", elems)
+}
+
 func (h *HTML) Alt(elems ...any) attr {
 	return attribute("alt", elems)
 }
@@ -159,6 +171,10 @@ func (h *HTML) Href(elems ...any) attr {
 
 func (h *HTML) Id(elems ...any) attr {
 	return attribute("id", elems)
+}
+
+func (h *HTML) Method(elems ...any) attr {
+	return attribute("method", elems)
 }
 
 func (h *HTML) Name(elems ...any) attr {
@@ -216,3 +232,8 @@ func (h *HTML) Checked(elems ...any) attr {
 func (h *HTML) Disabled(elems ...any) attr {
 	return attrNoArg("disabled", elems)
 }
+
+func (h *HTML) Selected(elems ...any) attr {
+	return attrNoArg("selected", elems)
+}
+

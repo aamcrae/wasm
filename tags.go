@@ -82,19 +82,19 @@ func (h *HTML) P(elems ...any) *frag {
 }
 
 func (h *HTML) Br(elems ...any) *frag {
-	return emptytag("br", elems)
+	return emptyTag("br", elems)
 }
 
 func (h *HTML) Hr(elems ...any) *frag {
-	return emptytag("hr", elems)
+	return emptyTag("hr", elems)
 }
 
 func (h *HTML) Link(elems ...any) *frag {
-	return emptytag("link", elems)
+	return emptyTag("link", elems)
 }
 
 func (h *HTML) Img(elems ...any) *frag {
-	return emptytag("img", elems)
+	return emptyTag("img", elems)
 }
 
 func (h *HTML) Alt(elems ...any) attr {
@@ -166,8 +166,6 @@ func (h *HTML) Value(elems ...any) attr {
 }
 
 func (h *HTML) Download(elems ...any) attr {
-	if len(s) == 0 {
-		s = []any{flag(f_no_arg)}
-	}
-	return attribute("download", s)
+	return attrNoArg("download", elems)
 }
+

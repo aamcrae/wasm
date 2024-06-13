@@ -105,6 +105,13 @@ func wrTag(nm string, elems []any, empty bool) *frag {
 	return f
 }
 
+func attrNoArg(nm string, elems []any) attr {
+	if len(elems) == 0 {
+		elems = []any{flag(f_no_arg)}
+	}
+	return attribute(nm, elems)
+}
+
 func attribute(nm string, elems []any) attr {
 	attrs, other, flags := unpack(elems)
 	if (flags&f_tags) != 0 || len(attrs) > 0 {

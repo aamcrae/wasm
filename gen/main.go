@@ -27,7 +27,7 @@ const tagTempl = `func (h *HTML) {{.Cname}}(elems ...any) *frag {
 
 `
 const emptyTagTempl = `func (h *HTML) {{.Cname}}(elems ...any) *frag {
-	return emptytag("{{.Name}}", elems)
+	return emptyTag("{{.Name}}", elems)
 }
 
 `
@@ -37,10 +37,7 @@ const attrTempl = `func (h *HTML) {{.Cname}}(elems ...any) attr {
 
 `
 const attrNoArgTempl = `func (h *HTML) {{.Cname}}(elems ...any) attr {
-	if len(s) == 0 {
-		s = []any{flag(f_no_arg)}
-	}
-	return attribute("download", s)
+	return attrNoArg("{{.Name}}", elems)
 }
 
 `

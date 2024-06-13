@@ -20,10 +20,18 @@ tags:
  - tr
  - ul
 emptytags:
+ - area
+ - base
  - br
+ - col
+ - embed
  - hr
  - img
  - link
+ - meta
+ - source
+ - track
+ - wbr
 attributes:
  - alt
  - border
@@ -44,3 +52,5 @@ attributes:
  - value
 attr-noarg:
  - download
+ - checked
+ - disabled

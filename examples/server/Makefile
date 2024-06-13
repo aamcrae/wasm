@@ -6,7 +6,7 @@ WEB := /tmp/wasm
 GOROOT := $(shell go env GOROOT)
 TINYGOROOT := $(shell tinygo env TINYGOROOT)
 
-all: dir hello compose
+all: dir hello compose fetcher
 	go run server.go --port=${PORT} --base=${WEB}
 
 hello:
@@ -21,6 +21,12 @@ compose:
 	make compose-go
 	echo Compose examples at http://localhost:${PORT}/compose
 
+fetcher:
+	mkdir -p ${WEB}/fetcher
+	cp ../fetcher/index.html ../fetcher/*.dat ${WEB}/fetcher
+	make fetcher-go
+	echo Fetcher example at http://localhost:${PORT}/fetcher
+
 hello-tinygo: tiny-exec
 	(cd ../hello; tinygo build -target wasm -o ${WEB}/hello.wasm)
 
@@ -29,6 +35,9 @@ hello-go: go-exec
 
 compose-go:
 	(cd ../compose; GOOS=js GOARCH=wasm go build -o ${WEB}/compose.wasm)
+
+fetcher-go:
+	(cd ../fetcher; GOOS=js GOARCH=wasm go build -o ${WEB}/fetcher.wasm)
 
 tiny-exec:
 	cp -f ${TINYGOROOT}/targets/wasm_exec.js ${WEB}

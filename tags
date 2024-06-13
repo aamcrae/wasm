@@ -1,0 +1,46 @@
+tags:
+ - h1
+ - h2
+ - h3
+ - h4
+ - h5
+ - h6
+ - div
+ - a
+ - span
+ - ol
+ - form
+ - label
+ - input
+ - ul
+ - li
+ - table
+ - tbody
+ - tr
+ - td
+ - p
+emptytags:
+ - br
+ - hr
+ - link
+ - img
+attributes:
+ - alt
+ - title
+ - src
+ - for
+ - name
+ - onclick
+ - onsubmit
+ - href
+ - rel
+ - type
+ - border
+ - summary
+ - class
+ - id
+ - size
+ - style
+ - value
+attr-noarg:
+ - download

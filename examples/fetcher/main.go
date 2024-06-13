@@ -23,7 +23,7 @@ func main() {
 	w.Display(h.String())
 	i := 1
 	for {
-		w.GetById(fmt.Sprintf("nr%d", i)).Set("innerHTML", js.ValueOf(<- c))
+		w.GetById(fmt.Sprintf("nr%d", i)).Set("innerHTML", js.ValueOf(<-c))
 		i++
 	}
 }

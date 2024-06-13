@@ -17,6 +17,7 @@ tags:
  - table
  - tbody
  - td
+ - thead
  - tr
  - ul
 emptytags:
